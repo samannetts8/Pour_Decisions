@@ -1,0 +1,126 @@
+1. Project Overview
+Goal:
+
+    Users upload a photo of a wine label.
+    The app scans the label, extracts key details (e.g., wine name, vintage), and retrieves scores or related information from Vivino and Spoonacular.
+
+Key Features:
+
+    Upload photo (frontend).
+    Process and analyze the image (backend).
+    Retrieve and display data (API integration and UI).
+
+2. Roadmap by Stages
+Stage 1: Plan the Architecture
+
+    Goal: Define the app's components and technologies.
+    Tasks:
+        Break the app into frontend, backend, and database components.
+        Decide on libraries and frameworks (Flask for Python backend, React.js for frontend).
+
+Tools and Skills Needed:
+
+    Languages: Basic Python, HTML/CSS.
+    Timeline: 1–2 weeks.
+    Learning Focus:
+        Python basics (syntax, functions, file handling).
+        HTML/CSS for structuring and styling web pages.
+
+Stage 2: Build the Frontend (UI)
+
+    Goal: Create a simple webpage where users can upload photos.
+    Tasks:
+        Build a form to accept image uploads.
+        Display the results (wine details and scores).
+
+Tools and Skills Needed:
+
+    Languages: HTML/CSS, JavaScript.
+    Framework: React.js (optional, for interactivity).
+    Timeline: 3–4 weeks.
+    Learning Focus:
+        Basic JavaScript for handling form submissions and DOM manipulation.
+        React.js if you want modern frontend development experience.
+
+Stage 3: Develop the Backend
+
+    Goal: Set up a Python backend to handle image uploads and perform tasks.
+    Tasks:
+        Create a Flask app to process uploaded images.
+        Save images temporarily for processing.
+
+Tools and Skills Needed:
+
+    Languages: Python.
+    Framework: Flask.
+    Timeline: 2–3 weeks.
+    Learning Focus:
+        Flask basics: routes, file handling, and connecting with the frontend.
+        Use Python libraries like Flask-Upload for file handling.
+
+Stage 4: Implement Image Processing
+
+    Goal: Extract key details (e.g., wine name, vintage) from the uploaded image.
+    Tasks:
+        Use Optical Character Recognition (OCR) to scan text from the image.
+        Extract and parse relevant details.
+
+Tools and Skills Needed:
+
+    Languages: Python.
+    Libraries:
+        Tesseract OCR: For text extraction from images.
+        OpenCV: For image preprocessing (e.g., resizing, filtering).
+    Timeline: 4–5 weeks.
+    Learning Focus:
+        How to install and use Tesseract and OpenCV.
+        Basics of image processing and text extraction.
+
+Stage 5: API Integration for Scores
+
+    Goal: Fetch wine scores and details from Vivino and Spoonacular using APIs.
+    Tasks:
+        Query APIs using extracted details.
+        Handle API responses (e.g., JSON) and pass data to the frontend.
+
+Tools and Skills Needed:
+
+    Languages: Python for API calls, JavaScript for displaying data dynamically.
+    Libraries:
+        Python’s requests library for API communication.
+        JavaScript’s fetch for real-time updates on the frontend.
+    Timeline: 3–4 weeks.
+    Learning Focus:
+        Basics of REST APIs (GET, POST).
+        JSON parsing in Python and JavaScript.
+
+Stage 6: Database Integration
+
+    Goal: Store scanned results for future queries or user preferences.
+    Tasks:
+        Set up a database to save wine details and scores.
+        Enable users to view their query history.
+
+Tools and Skills Needed:
+
+    Languages: Java (for backend database management).
+    Database: PostgreSQL or SQLite.
+    Timeline: 4 weeks.
+    Learning Focus:
+        Basics of SQL (writing queries, creating tables).
+        Java database connectivity using JDBC.
+
+Stage 7: Deploy the App
+
+    Goal: Host the app online for users to access.
+    Tasks:
+        Set up a cloud server (e.g., AWS, Heroku).
+        Configure a domain name and secure the site with HTTPS.
+
+Tools and Skills Needed:
+
+    Languages: Python (for Flask deployment).
+    Platforms: Docker for containerization (optional).
+    Timeline: 2–3 weeks.
+    Learning Focus:
+        Basics of web hosting and deployment.
