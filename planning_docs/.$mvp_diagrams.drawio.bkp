@@ -1,0 +1,62 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17" pages="2">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Full MVP">
+    <mxGraphModel dx="1247" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GRTBl3v3LeJTQexIrQ83-0" target="GRTBl3v3LeJTQexIrQ83-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-0" value="User opens the browser&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="589" y="50" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GRTBl3v3LeJTQexIrQ83-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-2" value="User selects service option" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="594" y="280" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-4" value="Upload an Image" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="485" y="298" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GRTBl3v3LeJTQexIrQ83-6" target="GRTBl3v3LeJTQexIrQ83-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-6" value="Greeting message appear" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="568" y="130" width="152" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="GRTBl3v3LeJTQexIrQ83-7" target="GRTBl3v3LeJTQexIrQ83-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-7" value="Service options appear (Upload an image, Random Wine, Saved Favourites)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="538" y="200" width="212" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-11" value="Service option menu disappears" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="330" y="410" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-12" value="Load in image upload function and accompanying&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="330" y="490" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GRTBl3v3LeJTQexIrQ83-17" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;u style=&quot;background-color: initial;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Assets&lt;/font&gt;&lt;/u&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;u style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/u&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;ul&gt;&lt;li&gt;Logo&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;verticalAlign=top;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="20" width="170" height="170" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="VVEEAThyA1NvPHraBywE" name="Framework Ideas">
+    <mxGraphModel dx="1434" dy="2048" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wKutH-KB2-R7WC8MHOVx-1" value="&lt;u&gt;&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Frontend Developments&lt;/font&gt;&lt;/b&gt;&lt;/u&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;For Mobile Apps:&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;Swift (iOS)&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Native app development for Apple devices.&lt;/li&gt;&lt;li&gt;Optimized for performance and UI integration.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;Kotlin or Java (Android)&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Kotlin is the modern, concise choice for Android apps.&lt;/li&gt;&lt;li&gt;Java is still widely supported and robust for Android.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;Flutter (Dart)&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;A cross-platform framework for building apps for both iOS and Android.&lt;/li&gt;&lt;li&gt;Uses a single codebase to save time and cost.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;React Native (JavaScript)&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Another cross-platform option with rich community support.&lt;/li&gt;&lt;li&gt;Ideal if you have JavaScript experience.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;&lt;h4&gt;For Web Apps:&lt;/h4&gt;&lt;ol&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;HTML/CSS and JavaScript (Frontend)&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Use frameworks like React.js or Vue.js for dynamic and responsive interfaces.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;strong&gt;Progressive Web Apps (PWA)&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Build a web app that feels like a native app, leveraging technologies like Service Workers.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;horizontal=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="-1150" width="510" height="510" as="geometry" />
+        </mxCell>
+        <mxCell id="n8KDsK6FfanJ4NTD0QtL-1" value="&lt;u&gt;&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Backend Developments&lt;/font&gt;&lt;/b&gt;&lt;/u&gt;&lt;div&gt;&lt;u&gt;&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Node.js (Javascript)&lt;/font&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Great for real-time processing and lightweight APIs&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Use Express.js to build scalable backend services.&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;2. &lt;b&gt;Python&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;ul&gt;&lt;li&gt;Excellent for barcode / image processing and data handling&lt;/li&gt;&lt;li&gt;Use Flask or Django for web frameworks&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;3. &lt;b&gt;Java (Spring Boot)&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;ul&gt;&lt;li&gt;Suitable for robust enterprice-level backends.&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial; white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;4.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;Ruby on Rails&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;ul&gt;&lt;li&gt;Ideal for quick prototyping with a focus on simplicity&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;horizontal=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="20" y="-610" width="510" height="510" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
