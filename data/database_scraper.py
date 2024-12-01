@@ -11,7 +11,6 @@ with open("./data/vivino_search_html_dump.html", "r") as html_dump:
     vineyard_class = "wineInfoVintage__vintage--VvWlU wineInfoVintage__truncate--3QAtw"
     value_score_class = "MuiTypography-root MuiTypography-body1 vivino-mui-dd3lp3-bodyMedium"
     average_rating_class = "vivinoRating_averageValue__uDdPM"
-    rating_count_class = "vivinoRating_caption__xL84P"
     price_class = "addToCartButton__currency--2CTNX addToCartButton__prefix--3LzGf" #access through sibiling
 
 full_wine_list = raw_data.find_all(class_= full_card_class)
@@ -38,21 +37,17 @@ specific_vineyard = raw_data.find(class_=card_tag).findChild(class_=vineyard_cla
 specific_brand = raw_data.find(class_=card_tag).findChild(class_=brand_class).text
 specific_value_score = raw_data.find(class_=card_tag).findChild(class_=value_score_class)
 specific_average_rating = raw_data.find(class_=card_tag).findChild(class_=average_rating_class).text
-specific_rating_count = raw_data.find(class_=card_tag).findChild(class_=rating_count_class).text
 specific_price = raw_data.find(class_=card_tag).findChild(class_=price_class).nextSibling.text
-
-print(specific_value_score)
 
 wine_ref_label = specific_brand+" - "+ specific_vineyard
 
 wine_profile[wine_ref_label] = {
     "brand": specific_brand,
     "vineyard": specific_vineyard[:-5],
-    "year": specific_vineyard[-4:],
+    "year": int(specific_vineyard[-4:]),
     "value":specific_value_score,
-    "average_rating":specific_average_rating,
-    "ratings_tally": specific_rating_count,
-    "price": specific_price
+    "average_rating":float(specific_average_rating),
+    "price": float(specific_price)
 }
 
 complete_wine_profiles.append(wine_profile)
