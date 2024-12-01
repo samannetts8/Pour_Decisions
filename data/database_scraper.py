@@ -56,4 +56,3 @@ SQL_connection = sqlite3.connect('vivino_database.db')
 data_framework.to_sql('vivino_database_table',SQL_connection, if_exists='replace',index=False)
 
 SQL_connection.close()
-
