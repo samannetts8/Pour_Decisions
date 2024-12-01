@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+import pandas as pd
+import sqlite3
 
 # Access HTML file
 with open("./data/vivino_search_html_dump.html", "r") as html_dump:
@@ -47,4 +49,11 @@ for unique_href in full_wine_ref:
 
     complete_wine_profiles.append(wine_profile)
 
-print(complete_wine_profiles)
+data_framework = pd.DataFrame(complete_wine_profiles)
+
+SQL_connection = sqlite3.connect('vivino_database.db')
+
+data_framework.to_sql('vivino_database_table',SQL_connection, if_exists='replace',index=False)
+
+SQL_connection.close()
+
