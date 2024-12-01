@@ -50,8 +50,9 @@ for unique_href in full_wine_ref:
     complete_wine_profiles.append(wine_profile)
 
 
-# Convert to DataFrame
-df = pd.DataFrame(complete_wine_profiles)
+#SQL Data Framework Connection
+data_framework = pd.DataFrame(complete_wine_profiles)
 
-# Export to CSV
-df.to_csv('vivino_database.csv', index=False)
+SQL_connection = sqlite3.connect('vivino_database.db')
+
+data_framework.to_sql('vivino_database_table',SQL_connection, if_exists='replace',index=False)
