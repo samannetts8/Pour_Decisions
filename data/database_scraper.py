@@ -12,38 +12,39 @@ value_score_class = "MuiTypography-root MuiTypography-body1 vivino-mui-dd3lp3-bo
 average_rating_class = "vivinoRating_averageValue__uDdPM"
 price_class = "addToCartButton__currency--2CTNX addToCartButton__prefix--3LzGf" #access through sibiling
 
-#Wine Card Unique Reference List
-total_wine_count = len(raw_data.find_all(class_= full_card_class))
-starting_wine_tag = raw_data.find(class_= full_card_class)
+# #Wine Card Unique Reference List
 full_wine_ref = []
 
-while starting_wine_tag:
-    wine_reference = starting_wine_tag.find_next('a').get('href')
-    full_wine_ref.append(wine_reference)    
-    starting_wine_tag = starting_wine_tag.find_next(class_= full_card_class)
+wine_cards = raw_data.find_all(class_=full_card_class)
+
+for card in wine_cards:
+    wine_reference = card.find_next('a').get('href')
+    full_wine_ref.append(wine_reference)
 
 
 #Building the wine profiles
 complete_wine_profiles = []
-i = 0
 
-while i < 4:
+for unique_href in full_wine_ref[:4]:
 
-    card_tag = full_wine_ref[i]
+    wine_card = raw_data.find(href=unique_href)
 
-    specific_vineyard = raw_data.find(href=card_tag).find(class_=vineyard_class).text
-    specific_brand = raw_data.find(href=card_tag).find(class_=brand_class).text
-    specific_value_score = raw_data.find(href=card_tag).find(class_=value_score_class)
-    specific_average_rating = raw_data.find(href=card_tag).find(class_=average_rating_class).text
-    specific_price = raw_data.find(href=card_tag).find(class_=price_class).nextSibling.text
+    specific_vineyard = wine_card.find(class_=vineyard_class).text if wine_card.find(class_=vineyard_class) else "Unknown Vineyard"
+    specific_brand = wine_card.find(class_=brand_class).text if wine_card.find(class_=brand_class) else "Unknown Brand"
+    specific_value_score = wine_card.find(class_=value_score_class).text if wine_card.find(class_=value_score_class) else "No Score"
+    specific_average_rating = wine_card.find(class_=average_rating_class).text if wine_card.find(class_=average_rating_class) else "No Rating"
+    specific_price = wine_card.find(class_=price_class).nextSibling.text if wine_card.find(class_=price_class) else "No Price"
+    specific_year = int(specific_vineyard[-4:]) if specific_vineyard[-4:].isdigit() else "Unknown Year"    
 
     wine_profile = {
         "brand": specific_brand,
         "vineyard": specific_vineyard[:-5],
-        "year": int(specific_vineyard[-4:]),
+        "year": specific_year,
         "value":specific_value_score,
         "average_rating":float(specific_average_rating),
         "price": float(specific_price),
     }
 
     complete_wine_profiles.append(wine_profile)
+
+print(complete_wine_profiles)
