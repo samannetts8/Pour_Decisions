@@ -25,7 +25,7 @@ for card in wine_cards:
 #Building the wine profiles
 complete_wine_profiles = []
 
-for unique_href in full_wine_ref[:4]:
+for unique_href in full_wine_ref:
 
     wine_card = raw_data.find(href=unique_href)
 
