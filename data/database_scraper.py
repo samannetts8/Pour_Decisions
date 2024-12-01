@@ -8,7 +8,7 @@ with open("./data/vivino_search_html_dump.html", "r") as html_dump:
 full_card_class = "card__card--2R5Wh wineCard__wineCardContent--3cwZt"
 brand_class = "wineInfoVintage__truncate--3QAtw"
 vineyard_class = "wineInfoVintage__vintage--VvWlU wineInfoVintage__truncate--3QAtw"
-value_score_class = "MuiTypography-root MuiTypography-body1 vivino-mui-dd3lp3-bodyMedium"
+value_score_class = "MuiTypography-root MuiTypography-body1 vivino-mui-ssvfeg-MuiTypography-root-bodyMedium"
 average_rating_class = "vivinoRating_averageValue__uDdPM"
 price_class = "addToCartButton__currency--2CTNX addToCartButton__prefix--3LzGf" #access through sibiling
 
