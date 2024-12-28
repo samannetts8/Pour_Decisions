@@ -10,7 +10,7 @@ database_username = os.getenv('database_username')
 database_password = os.getenv('database_password')
 database_name = os.getenv('database_name')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{database_username}:{database_password}!@localhost/{database_name}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{database_username}:{database_password}@localhost/{database_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
