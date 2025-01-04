@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import psycopg2
 import os
 import uuid
-import csv
+
 
 load_dotenv('../env_docs/info.env') 
 app = Flask(__name__)
@@ -34,30 +34,38 @@ class Wine(db.Model):
 
 migrate=Migrate(app, db)
 
-def load_csv_to_db(csv_file_path):
-    with open(csv_file_path, newline='', encoding='latin1') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            wine = Wine(
-                brand=row['brand'],
-                vineyard=row['vineyard'],
-                year=row['year'],
-                value=row['value'],
-                average_rating=float(row['average_rating']),
-                price=row['price']
-            )
-            db.session.add(wine)
-        db.session.commit()
-
-
-
-
-
 @app.route('/')
 def home():
-    return 'Hello, World!'
+    wines = Wine.query.all()
+    wines_list = [
+    {
+        'id': wine.id,
+        'brand': wine.brand,
+        'vineyard': wine.vineyard,
+        'year': wine.year,
+        'value': wine.value,
+        'average_rating': wine.average_rating,
+        'price': wine.price
+    } for wine in wines
+    ]
+    return jsonify(wines_list)
+
+@app.route('/wine/<string:id>',methods=['GET'])
+def get_wine_with_id(id):
+    wine = Wine.query.get(id)
+    wine_card = [
+    {
+        'id': wine.id,
+        'brand': wine.brand,
+        'vineyard': wine.vineyard,
+        'year': wine.year,
+        'value': wine.value,
+        'average_rating': wine.average_rating,
+        'price': wine.price
+    }
+    ]
+    return jsonify(wine_card)
+
 
 if __name__ == '__main__':
-    # app.run(debug=True)
-     with app.app_context():
-        load_csv_to_db('../data/vivino_database.csv')
+    app.run(debug=True)
