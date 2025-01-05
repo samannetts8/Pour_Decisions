@@ -1,5 +1,6 @@
 from flask import jsonify,abort
 from data.db import db
+import uuid
 
 #Create the class for the Wine model
 class Wine(db.Model):
