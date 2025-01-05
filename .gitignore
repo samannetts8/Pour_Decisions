@@ -1,18 +1,12 @@
-# Ignore all files
-flask_backend/*
-
-# Do not ignore app.py and __init__.py
-!flask_backend/app.py
-!flask_backend/__init__.py
-
-# Ignore environment files
-**/*.env
-
 # Ignore Python cache files
 __pycache__/
 
 # Ignore migration versions
-versions
+data/old_scripts/
 
 #Virtual environment
 vivino_env
+
+#Configuration files
+config.py
+
