@@ -31,6 +31,17 @@
                 <td>{{wine.price}}</td>
             </tr>
             {% endfor %}
+            {% if target_wine != None %}
+            <tr>
+                <td>{{target_wine.id}}</td>
+                <td>{{target_wine.brand}}</td>
+                <td>{{target_wine.vineyard}}</td>
+                <td>{{target_wine.year}}</td>
+                <td>{{target_wine.value}}</td>
+                <td>{{target_wine.average_rating}}</td>
+                <td>{{target_wine.price}}</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 </body>

@@ -37,6 +37,7 @@ def return_all_wines():
 #Return wine with id function
 def return_wine_with_id(id):
     wine = Wine.query.get(id)
+    print(wine)
     if wine is None:
         abort(404)
-    return jsonify(wine)
+    return wine

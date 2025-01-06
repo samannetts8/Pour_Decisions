@@ -6,10 +6,10 @@ wine_database = Blueprint('wine_database', __name__)
 @wine_database.route('/', methods=['GET'])
 def home():
     wine_list = return_all_wines()
-    obj_type = type(wine_list)
-    length = len(wine_list) 
-    return render_template('full_wine_table.html', wine_list=wine_list,length = length, obj_type = obj_type)  
+    target_wine = None
+    return render_template('wine_table.html', wine_list=wine_list, target_wine=target_wine)  
 
 @wine_database.route('/<string:id>', methods=['GET'])
 def wine_id_search(id):
-    return return_wine_with_id(id)
+    target_wine = return_wine_with_id(id)
+    return render_template('wine_table.html', target_wine=target_wine)  
