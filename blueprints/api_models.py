@@ -17,21 +17,6 @@ class Wine(db.Model):
     def __repr__(self):
         return f'<Wine {self.id}>'
     
-def load_csv_to_db(csv_file_path):
-    with open(csv_file_path, newline='', encoding='latin1') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            wine = Wine(
-                brand=row['brand'],
-                vineyard=row['vineyard'],
-                year=row['year'],
-                value=row['value'],
-                average_rating=float(row['average_rating']),
-                price=row['price']
-            )
-            db.session.add(wine)
-        db.session.commit()
-
 #Return all function
 def return_all_wines():
     wines = Wine.query.all()
@@ -46,7 +31,7 @@ def return_all_wines():
         'price': wine.price
     } for wine in wines
     ]
-    return jsonify(wines_list)
+    return wines_list
 
 
 #Return wine with id function

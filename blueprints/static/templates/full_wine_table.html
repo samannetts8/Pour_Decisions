@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Full Wine Table</title>
+</head>
+
+<body>
+    <table style="width:100%; text-align:center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Brand</th>
+                <th>Vineyard</th>
+                <th>Year</th>
+                <th>Value</th>
+                <th>Average Rating</th>
+                <th>Price (£)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wine in wine_list %}
+            <tr>
+                <td>{{wine.id}}</td>
+                <td>{{wine.brand}}</td>
+                <td>{{wine.vineyard}}</td>
+                <td>{{wine.year}}</td>
+                <td>{{wine.value}}</td>
+                <td>{{wine.average_rating}}</td>
+                <td>{{wine.price}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
