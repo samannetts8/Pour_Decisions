@@ -1,6 +1,7 @@
 from flask import jsonify,abort
 from data.db import db
 import uuid
+import csv
 
 #Create the class for the Wine model
 class Wine(db.Model):
@@ -32,14 +33,6 @@ def return_all_wines():
     ]
     return wines_list
 
-#Return wine with id function
-def return_wine_with_id(id):
-    wine = Wine.query.get(id)
-    print(wine)
-    if wine is None:
-        abort(404)
-    return wine
-
 
 #Return wine with id function
 def return_wine_with_id(id):
@@ -48,7 +41,3 @@ def return_wine_with_id(id):
     if wine is None:
         abort(404)
     return wine
-
-
-def return_filtered_wine():
-    
