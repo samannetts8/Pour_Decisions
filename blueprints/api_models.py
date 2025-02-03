@@ -41,14 +41,10 @@ def return_wine_with_id(id):
     return wine
 
 
-#Return wine with id function
-def return_wine_with_id(id):
-    wine = Wine.query.get(id)
-    print(wine)
-    if wine is None:
-        abort(404)
-    return wine
-
-
-def return_filtered_wine():
-    
+# #Return wine with id function
+# def return_wine_with_id(id):
+#     wine = Wine.query.get(id)
+#     print(wine)
+#     if wine is None:
+#         abort(404)
+#     return wine
