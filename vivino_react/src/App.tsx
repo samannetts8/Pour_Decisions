@@ -1,34 +1,21 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import styles from './App.module.css' 
 import viteLogo from '/vite.svg'
 import './App.css'
+import URL_Link_Button  from './assets/components/URL_Link_Button'
+import logo from '../../blueprints/static/assets/pour_decisions_logo_uncoloured.jpg'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className={styles.container}>
+    <img src={logo} className={styles.logo} alt='Pour Decisions Logo'/>
+    <div className={styles.buttonContainer}>
+    <URL_Link_Button url="http://127.0.0.1:5000" text_content="Database"/>
+    <URL_Link_Button url="http://127.0.0.1:5000" text_content="Database"/>
+    </div>
+    </div>
   )
 }
 
