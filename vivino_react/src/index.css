@@ -45,3 +45,9 @@
 .border-gold {
   border-color: #D4B78C;
 }
+
+.logo {
+  max-width: 100%;
+  height: auto;
+  background: transparent; /* Ensure the background is transparent */
+}
