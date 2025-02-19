@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.bg-wine {
+  background-color: #722F37;
+}
+
+.bg-cream {
+  background-color: #F5E6D3;
+}
+
+.bg-gold {
+  background-color: #D4B78C;
+}
+
+.text-wine {
+  color: #722F37;
+}
+
+.text-cream {
+  color: #F5E6D3;
+}
+
+.text-gold {
+  color: #D4B78C;
+}
+
+.border-wine {
+  border-color: #722F37;
+}
+
+.border-cream {
+  border-color: #F5E6D3;
+}
+
+.border-gold {
+  border-color: #D4B78C;
+}
