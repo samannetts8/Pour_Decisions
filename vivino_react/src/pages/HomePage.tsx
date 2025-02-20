@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Database, Upload, Wine } from 'lucide-react';
-import Logo from '../../../blueprints/static/assets/pour_decisions_logo_no_background.png'; // Import the local image
+import Logo from '../../../static/assets/pour_decisions_logo_no_background.png'; // Import the local image
+import '../index.css';
 
 const HomePage = () => {
   const navigate = useNavigate();

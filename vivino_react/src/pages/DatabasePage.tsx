@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Home, Search, Filter, ChevronLeft, ChevronRight, Wine } from 'lucide-react';
+import '../index.css';
 
 const DatabasePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
