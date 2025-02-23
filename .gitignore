@@ -34,3 +34,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+#Environmental variables
+.env
