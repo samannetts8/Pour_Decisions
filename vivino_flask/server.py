@@ -15,9 +15,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def members():
-    # Query data from Supabase
     data = supabase.table('Vivino_data').select('*').execute()
-    return jsonify(data.data)  # Return the fetched data as JSON
+    return jsonify(data.data)  
 
 if __name__ == "__main__":
         app.run(debug=True)
