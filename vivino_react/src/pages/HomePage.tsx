@@ -42,18 +42,6 @@ const HomePage = () => {
             <Database size={20} />
             Database
           </motion.button>
-
-
-          <motion.button
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-            onClick={() => fetch("http://127.0.0.1:5000")}
-            className="px-8 py-4 bg-wine text-cream rounded-xl flex items-center gap-2 hover:bg-opacity-90 transition-colors font-cinzel"
-          >
-            <Database size={20} />
-            Database
-          </motion.button>
         </div>
       </div>
     </div>
