@@ -1,40 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import {
-  Home,
-  Search,
-  Filter,
-  ChevronLeft,
-  ChevronRight,
-  Wine,
-} from "lucide-react";
+import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "../../../static/assets/pour_decisions_logo_no_background.png";
 import "../index.css";
 
 const DatabasePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [wineData, setWineData] = useState([])
-  
+  const [wineData, setWineData] = useState([]);
+  const [displayedWines, setDisplayedWines] = useState([])
+
   useEffect(() => {
-  async function page_load() {
-    try {
-      const response = await fetch("http://127.0.0.1:5000");
-      const data = await response.json()
-      const specific_page_data = data.splice(currentPage*10-10,10)
-      setWineData(specific_page_data)
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    async function data_import() {
+      try {
+        const response = await fetch("http://127.0.0.1:5000");
+        const data = await response.json();
+        console.log(data)
+        setWineData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
+    data_import();
+  }, []);
+
+  useEffect (()=>{
+    async function printed_wine() {
+    setDisplayedWines(wineData.splice(currentPage*10-10,10));
+  }printed_wine()},[currentPage,wineData])
+  
+  
+  function page_navigation(direction: number) {
+    setCurrentPage(Math.max(1, currentPage + direction));
   }
-
-  page_load();
-  },[currentPage]);
-
-
-  useEffect(() => {
-    
-  })
 
   return (
     <div className="min-h-screen bg-cream">
@@ -152,7 +150,7 @@ const DatabasePage = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gold/30">
-                    {wineData.map((wine) => (
+                    {displayedWines.map((wine) => (
                       <tr
                         key={wine.id}
                         className="hover:bg-wine/5 transition-colors"
@@ -193,7 +191,7 @@ const DatabasePage = () => {
               <div className="bg-wine/5 px-6 py-4 flex items-center justify-between border-t border-gold/30">
                 <div className="flex items-center gap-4">
                   <button
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    onClick={() =>page_navigation(-1)}
                     className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
                   >
                     <ChevronLeft size={20} />
@@ -202,7 +200,7 @@ const DatabasePage = () => {
                     Page {currentPage}
                   </span>
                   <button
-                    onClick={() => setCurrentPage((p) => p + 1)}
+                    onClick={() =>page_navigation(1)}
                     className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
                   >
                     <ChevronRight size={20} />
