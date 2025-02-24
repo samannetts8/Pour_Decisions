@@ -26,7 +26,8 @@ const DatabasePage = () => {
 
   useEffect (()=>{
     async function printed_wine() {
-    setDisplayedWines(wineData.splice(currentPage*10-10,10));
+    const temp_wine_list = [...wineData]
+    setDisplayedWines(temp_wine_list.splice(currentPage*10-10,10));
   }printed_wine()},[currentPage,wineData])
   
   
