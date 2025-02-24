@@ -180,7 +180,7 @@ const DatabasePage = () => {
                           {wine.value}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine/80">
-                          ${wine.price}
+                          £{wine.price.toFixed(2)}
                         </td>
                       </tr>
                     ))}
