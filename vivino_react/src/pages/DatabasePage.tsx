@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RangeSlider from "../components/DoubleSlider"; 
+import Radio from "../components/Radio"; 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
@@ -17,14 +18,18 @@ const DatabasePage = ({ wineData }) => {
     switch (field) {
       case "brand":
         setBrandFilter(newTextInput.toLowerCase());
+        setCurrentPage(1)
         break;
       case "vineyard":
         setVineyardFilter(newTextInput.toLowerCase());
+        setCurrentPage(1)
+        break;
     }
   }
 
   const handleSliderChange = (event,newValue: number[]) => {
       setPriceRange([newValue[0], newValue[1]]);
+      setCurrentPage(1)
   };
 
 
@@ -50,7 +55,7 @@ const DatabasePage = ({ wineData }) => {
     <div className="min-h-screen bg-cream">
       {/* Header */}
       <header className="bg-wine shadow-lg">
-        <div className="mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="mx-auto px-6  flex items-center justify-between">
           <div className="flex items-center gap-6">
             {/* Top Left Logo */}
             <Link to="/">
@@ -58,8 +63,8 @@ const DatabasePage = ({ wineData }) => {
                 src={Logo}
                 alt="Pour Decisions Logo"
                 className="logo"
-                width={80}
-                height={80}
+                width={120}
+                height={120}
               />
             </Link>
             {/* Home Button */}
@@ -68,7 +73,7 @@ const DatabasePage = ({ wineData }) => {
                 to="/"
                 className="flex items-center gap-2 text-cream/80 hover:text-cream transition-colors font-cinzel"
               >
-                <Home size={20} />
+                <Home size={40} />
                 Home
               </Link>
               {/* Image Upload Button */}
@@ -76,7 +81,7 @@ const DatabasePage = ({ wineData }) => {
                 to="/upload"
                 className="flex items-center gap-2 text-cream/80 hover:text-cream transition-colors font-cinzel"
               >
-                <Search size={20} />
+                <Search size={40} />
                 Image Upload
               </Link>
             </nav>
@@ -135,6 +140,7 @@ const DatabasePage = ({ wineData }) => {
                   Price Range
                 </label>
                 <RangeSlider handleSliderChange={handleSliderChange} priceRange={priceRange}/>
+                <Radio/>
               </div>
             </div>
           </motion.div>
