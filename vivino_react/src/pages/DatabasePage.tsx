@@ -8,14 +8,14 @@ import "../index.css";
 const DatabasePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [wineData, setWineData] = useState([]);
-  const [displayedWines, setDisplayedWines] = useState([])
+  const [displayedWines, setDisplayedWines] = useState([]);
 
   useEffect(() => {
     async function data_import() {
       try {
         const response = await fetch("http://127.0.0.1:5000");
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         setWineData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -24,13 +24,14 @@ const DatabasePage = () => {
     data_import();
   }, []);
 
-  useEffect (()=>{
+  useEffect(() => {
     async function printed_wine() {
-    const temp_wine_list = [...wineData]
-    setDisplayedWines(temp_wine_list.splice(currentPage*10-10,10));
-  }printed_wine()},[currentPage,wineData])
-  
-  
+      const temp_wine_list = [...wineData];
+      setDisplayedWines(temp_wine_list.splice(currentPage * 10 - 10, 10));
+    }
+    printed_wine();
+  }, [currentPage, wineData]);
+
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
@@ -39,7 +40,7 @@ const DatabasePage = () => {
     <div className="min-h-screen bg-cream">
       {/* Header */}
       <header className="bg-wine shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
             {/* Top Left Logo */}
             <Link to="/">
@@ -73,7 +74,7 @@ const DatabasePage = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className=" mx-auto px-6 py-8">
         <div className="flex gap-8">
           {/* Filters Panel */}
           <motion.div
@@ -127,25 +128,25 @@ const DatabasePage = () => {
           >
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gold/30">
+                <table className="min-w-15000 divide-y divide-gold/30">
                   <thead className="bg-wine/5">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
                         Score
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
                         Brand
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
                         Vineyard
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
                         Year
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
                         Value
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
                         Price
                       </th>
                     </tr>
@@ -167,10 +168,10 @@ const DatabasePage = () => {
                             {wine.average_rating}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine">
+                        <td className="px-6 py-4 whitespace-normal font-cinzel text-wine">
                           {wine.brand}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine/80">
+                        <td className="px-6 py-4 whitespace-normal font-cinzel text-wine/80">
                           {wine.vineyard}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine/80">
@@ -192,7 +193,7 @@ const DatabasePage = () => {
               <div className="bg-wine/5 px-6 py-4 flex items-center justify-between border-t border-gold/30">
                 <div className="flex items-center gap-4">
                   <button
-                    onClick={() =>page_navigation(-1)}
+                    onClick={() => page_navigation(-1)}
                     className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
                   >
                     <ChevronLeft size={20} />
@@ -201,7 +202,7 @@ const DatabasePage = () => {
                     Page {currentPage}
                   </span>
                   <button
-                    onClick={() =>page_navigation(1)}
+                    onClick={() => page_navigation(1)}
                     className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
                   >
                     <ChevronRight size={20} />
