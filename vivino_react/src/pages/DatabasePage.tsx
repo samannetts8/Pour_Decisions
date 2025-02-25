@@ -9,20 +9,30 @@ const DatabasePage = ({wineData}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedWines, setDisplayedWines] = useState([]);
   const [brandFilter, setBrandFilter] = useState("");
+  const [vineyardFilter, setVineyardFilter] = useState("");
 
-  function handleBrandChange(newBrandInput) {
-    setBrandFilter(newBrandInput.toLowerCase());
+  function handleTextChange(field,newTextInput) {
+    switch(field){
+      case("brand"):
+      setBrandFilter(newTextInput.toLowerCase());
+      break;
+      case("vineyard"):
+      setVineyardFilter(newTextInput.toLowerCase());
+    }
   }
+
+
 
   useEffect(() => {
     async function printed_wine() {
       const temp_wine_list = [...wineData];
-      const filtered_list = temp_wine_list.filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
-      console.log(filtered_list)
+      const filtered_list = temp_wine_list
+      .filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
+      .filter((wine) => wine.vineyard.toLowerCase().includes(vineyardFilter))
       setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
     }
     printed_wine();
-  }, [currentPage, wineData,brandFilter]);
+  }, [currentPage, wineData,brandFilter,vineyardFilter]);
 
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
@@ -89,8 +99,17 @@ const DatabasePage = ({wineData}) => {
                 <input
                   type="text"
                   className="w-full px-4 py-2 rounded-xl border border-gold/50 focus:border-wine focus:ring-1 focus:ring-wine bg-cream/50"
-                  onChange={(event)=> {handleBrandChange(event.target.value)}}
+                  onChange={(event)=> {handleTextChange("brand",event.target.value)}}
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-cinzel text-wine/80 mb-2">
+                  Vineyard
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2 rounded-xl border border-gold/50 focus:border-wine focus:ring-1 focus:ring-wine bg-cream/50"
+                  onChange={(event)=> {handleTextChange("vineyard",event.target.value)}}/>
               </div>
               <div>
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
