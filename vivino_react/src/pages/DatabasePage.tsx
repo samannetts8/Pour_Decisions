@@ -5,36 +5,30 @@ import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "../../../static/assets/pour_decisions_logo_no_background.png";
 import "../index.css";
 
-const DatabasePage = () => {
+const DatabasePage = ({wineData}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [wineData, setWineData] = useState([]);
   const [displayedWines, setDisplayedWines] = useState([]);
+  const [brandFilter, setBrandFilter] = useState("");
 
-  useEffect(() => {
-    async function data_import() {
-      try {
-        const response = await fetch("http://127.0.0.1:5000");
-        const data = await response.json();
-        console.log(data);
-        setWineData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    data_import();
-  }, []);
+  function handleBrandChange(newBrandInput) {
+    setBrandFilter(newBrandInput.toLowerCase());
+  }
 
   useEffect(() => {
     async function printed_wine() {
       const temp_wine_list = [...wineData];
-      setDisplayedWines(temp_wine_list.splice(currentPage * 10 - 10, 10));
+      const filtered_list = temp_wine_list.filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
+      console.log(filtered_list)
+      setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
     }
     printed_wine();
-  }, [currentPage, wineData]);
+  }, [currentPage, wineData,brandFilter]);
 
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
+
+
 
 
   return (
@@ -95,6 +89,7 @@ const DatabasePage = () => {
                 <input
                   type="text"
                   className="w-full px-4 py-2 rounded-xl border border-gold/50 focus:border-wine focus:ring-1 focus:ring-wine bg-cream/50"
+                  onChange={(event)=> {handleBrandChange(event.target.value)}}
                 />
               </div>
               <div>
