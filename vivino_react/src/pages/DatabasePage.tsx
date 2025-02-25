@@ -36,6 +36,7 @@ const DatabasePage = () => {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
 
+
   return (
     <div className="min-h-screen bg-cream">
       {/* Header */}
@@ -128,7 +129,7 @@ const DatabasePage = () => {
           >
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="min-w-15000 divide-y divide-gold/30">
+                <table className=" divide-y divide-gold/30">
                   <thead className="bg-wine/5">
                     <tr>
                       <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
