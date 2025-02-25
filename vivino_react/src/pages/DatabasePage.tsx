@@ -10,8 +10,8 @@ import "../index.css";
 
 export const displayYearContext = React.createContext();
 const uniqueYears = [
-    1990,1992,1996,2002,2004,2007,2008,2009,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, "Unknown Year"];
-
+    "1990","1992","1996","2002","2004","2007","2008","2009","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023", "Unknown Year"];
+let displayed_years = []
 
 const DatabasePage = ({ wineData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,9 +19,8 @@ const DatabasePage = ({ wineData }) => {
   const [brandFilter, setBrandFilter] = useState("");
   const [vineyardFilter, setVineyardFilter] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0,30]);
-  const [checkedState, setCheckedState] = useState<boolean[]>(
-    Array(uniqueYears.length).fill(true)
-  );
+  const [checkedState, setCheckedState] = useState<boolean[]>(Array(uniqueYears.length).fill(true));
+  const [validYears, setValidYears] =  useState<string[]>(uniqueYears);
 
   function handleTextChange(field, newTextInput) {
     switch (field) {
@@ -41,6 +40,17 @@ const DatabasePage = ({ wineData }) => {
       setCurrentPage(1)
   };
 
+  useEffect(() => {
+    const temp_years = [...uniqueYears]
+    const filtered_years = []
+    for (let i =0;i<uniqueYears.length;i++){
+      if(checkedState[i]){
+        filtered_years.push(temp_years[i])
+      }
+    }
+    setValidYears(filtered_years)
+  },[checkedState])
+
 
   useEffect(() => {
     async function printed_wine() {
@@ -48,16 +58,16 @@ const DatabasePage = ({ wineData }) => {
       const filtered_list = temp_wine_list
         .filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
         .filter((wine) => wine.vineyard.toLowerCase().includes(vineyardFilter))
-        .filter((wine) => wine.price >= priceRange[0] && wine.price <= priceRange[1]);
-      setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
+        .filter((wine) => wine.price >= priceRange[0] && wine.price <= priceRange[1])
+        .filter((wine) => validYears.includes(wine.year));
+        setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
     }
     printed_wine();
-  }, [currentPage, wineData, brandFilter, vineyardFilter,priceRange]);
+  }, [currentPage, wineData, brandFilter, vineyardFilter,priceRange,validYears]);
 
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
-
 
 
   return (
