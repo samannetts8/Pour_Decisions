@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RangeSlider from "../components/DoubleSlider"; 
 import YearCheckboxes from "../components/YearCheckbox"; 
+import ValueCheckboxes from "../components/ValueCheckbox"; 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
@@ -9,9 +10,13 @@ import "../index.css";
 
 
 export const displayYearContext = React.createContext();
+export const displayValueContext = React.createContext();
+
 const uniqueYears = [
     "1990","1992","1996","2002","2004","2007","2008","2009","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023", "Unknown Year"];
-let displayed_years = []
+
+const uniqueValue = [
+  "Amazing Value!","Great Value","Good Value","Fair Value","Better Value Elsewhere","No Score"];
 
 const DatabasePage = ({ wineData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,8 +24,10 @@ const DatabasePage = ({ wineData }) => {
   const [brandFilter, setBrandFilter] = useState("");
   const [vineyardFilter, setVineyardFilter] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0,30]);
-  const [checkedState, setCheckedState] = useState<boolean[]>(Array(uniqueYears.length).fill(true));
+  const [checkedYearState, setCheckedYearState] = useState<boolean[]>(Array(uniqueYears.length).fill(true));
+  const [checkedValueState, setCheckedValueState] = useState<boolean[]>(Array(uniqueValue.length).fill(true));
   const [validYears, setValidYears] =  useState<string[]>(uniqueYears);
+  const [validValues, setValidValues] =  useState<string[]>(uniqueYears);
 
   function handleTextChange(field, newTextInput) {
     switch (field) {
@@ -44,13 +51,23 @@ const DatabasePage = ({ wineData }) => {
     const temp_years = [...uniqueYears]
     const filtered_years = []
     for (let i =0;i<uniqueYears.length;i++){
-      if(checkedState[i]){
+      if(checkedYearState[i]){
         filtered_years.push(temp_years[i])
       }
     }
     setValidYears(filtered_years)
-  },[checkedState])
+  },[checkedYearState])
 
+  useEffect(() => {
+    const temp_values = [...uniqueValue]
+    const filtered_values = []
+    for (let i =0;i<uniqueValue.length;i++){
+      if(checkedValueState[i]){
+        filtered_values.push(temp_values[i])
+      }
+    }
+    setValidValues(filtered_values)
+  },[checkedValueState])
 
   useEffect(() => {
     async function printed_wine() {
@@ -59,11 +76,12 @@ const DatabasePage = ({ wineData }) => {
         .filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
         .filter((wine) => wine.vineyard.toLowerCase().includes(vineyardFilter))
         .filter((wine) => wine.price >= priceRange[0] && wine.price <= priceRange[1])
-        .filter((wine) => validYears.includes(wine.year));
+        .filter((wine) => validYears.includes(wine.year))
+        .filter((wine) => validValues.includes(wine.value));
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
     }
     printed_wine();
-  }, [currentPage, wineData, brandFilter, vineyardFilter,priceRange,validYears]);
+  }, [currentPage, wineData, brandFilter, vineyardFilter,priceRange,validYears,validValues]);
 
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
@@ -146,7 +164,7 @@ const DatabasePage = ({ wineData }) => {
                 />
               </div>
               <div>
-                <displayYearContext.Provider value={[checkedState, setCheckedState]}>
+                <displayYearContext.Provider value={[checkedYearState, setCheckedYearState]}>
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
                   Year Range
                 </label>
@@ -160,8 +178,18 @@ const DatabasePage = ({ wineData }) => {
                   Price Range
                 </label>
                 <RangeSlider handleSliderChange={handleSliderChange} priceRange={priceRange}/>
-
               </div>
+              <div>
+                <displayValueContext.Provider value={[checkedValueState, setCheckedValueState]}>
+                <label className="block text-sm font-cinzel text-wine/80 mb-2">
+                  Value
+                </label>
+                <div className="px-4 py-1">
+                <ValueCheckboxes />
+                </div>
+                </displayValueContext.Provider>
+              </div>
+
             </div>
           </motion.div>
 

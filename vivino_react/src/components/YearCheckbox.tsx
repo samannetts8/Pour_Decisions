@@ -2,26 +2,25 @@ import React, { useContext, useState } from "react";
 import { displayYearContext } from "../pages/DatabasePage";
 
 const uniqueYears = [
-    1990,1992,1996,2002,2004,2007,2008,2009,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, "Unknown Year"];
-
+  "1990","1992","1996","2002","2004","2007","2008","2009","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023", "Unknown Year"];
 
 const CheckboxList: React.FC = () => {
   const [showAll, setShowAll] = useState<boolean>(false);
   const [includeAll, setIncludeAll] = useState<boolean>(true);
-  const [checkedState, setCheckedState] = useContext(displayYearContext)
+  const [checkedYearState, setCheckedYearState] = useContext(displayYearContext)
 
   const visibleItems = showAll ? uniqueYears : uniqueYears.slice(0, 3);
 
   const handleShowAllChange = () => {
     setIncludeAll(!includeAll);
-    setCheckedState(new Array(uniqueYears.length).fill(!includeAll));
+    setCheckedYearState(new Array(uniqueYears.length).fill(!includeAll));
   };
 
   const handleCheckboxChange = (index: number) => {
-    const updatedCheckedState = checkedState.map((item, idx) =>
+    const updatedCheckedState = checkedYearState.map((item, idx) =>
       idx === index ? !item : item
     );
-    setCheckedState(updatedCheckedState);
+    setCheckedYearState(updatedCheckedState);
   };
 
   return (
@@ -38,7 +37,7 @@ const CheckboxList: React.FC = () => {
         <label key={index} style={{ display: "block" }}>
           <input
             type="checkbox"
-            checked={checkedState[index]}
+            checked={checkedYearState[index]}
             onChange={() => handleCheckboxChange(index)}
           />{" "}
           {item}
