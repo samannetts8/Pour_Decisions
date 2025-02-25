@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import RangeSlider from "../components/DoubleSlider"; 
-import Radio from "../components/Radio"; 
+import YearCheckboxes from "../components/YearCheckbox"; 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "../../../static/assets/pour_decisions_logo_no_background.png";
 import "../index.css";
+
+
+export const displayYearContext = React.createContext();
+const uniqueYears = [
+    1990,1992,1996,2002,2004,2007,2008,2009,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023, "Unknown Year"];
+
 
 const DatabasePage = ({ wineData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,6 +19,9 @@ const DatabasePage = ({ wineData }) => {
   const [brandFilter, setBrandFilter] = useState("");
   const [vineyardFilter, setVineyardFilter] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0,30]);
+  const [checkedState, setCheckedState] = useState<boolean[]>(
+    Array(uniqueYears.length).fill(true)
+  );
 
   function handleTextChange(field, newTextInput) {
     switch (field) {
@@ -127,20 +136,21 @@ const DatabasePage = ({ wineData }) => {
                 />
               </div>
               <div>
+                <displayYearContext.Provider value={[checkedState, setCheckedState]}>
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
                   Year Range
                 </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 rounded-xl border border-gold/50 focus:border-wine focus:ring-1 focus:ring-wine bg-cream/50"
-                />
+                <div className="px-4 py-1">
+                <YearCheckboxes/>
+                </div>
+                </displayYearContext.Provider>
               </div>
               <div>
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
                   Price Range
                 </label>
                 <RangeSlider handleSliderChange={handleSliderChange} priceRange={priceRange}/>
-                <Radio/>
+
               </div>
             </div>
           </motion.div>
