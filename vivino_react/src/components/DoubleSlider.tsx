@@ -6,6 +6,8 @@ type RangeSliderProps = {
   min?: number;
   max?: number;
   defaultValue?: [number, number];
+  handleSliderChange: (newValue: number[]) => void;
+  priceRange?: [number, number];
 };
 
 // Custom Styled Slider (Pretto.fr)
@@ -48,23 +50,14 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-const RangeSlider: React.FC<RangeSliderProps> = ({
+const RangeSlider: React.FC<RangeSliderProps> = ({handleSliderChange,priceRange,
   min = 0,
   max = 30,
-  defaultValue = [5, 25],
-}) => {
-  const [value, setValue] = useState<[number, number]>(defaultValue);
-
-  const handleChange = (_event: Event, newValue: number | number[]) => {
-    if (Array.isArray(newValue)) {
-      setValue([newValue[0], newValue[1]]);
-    }
-  };
-
+  }) => {
   return (
     <PrettoSlider
-      value={value}
-      onChange={handleChange}
+      value={priceRange}
+      onChange={(event,newValue) => handleSliderChange(event,newValue)}
       valueLabelDisplay="auto"
       min={min}
       max={max}

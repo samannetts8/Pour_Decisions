@@ -11,6 +11,7 @@ const DatabasePage = ({ wineData }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [brandFilter, setBrandFilter] = useState("");
   const [vineyardFilter, setVineyardFilter] = useState("");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0,30]);
 
   function handleTextChange(field, newTextInput) {
     switch (field) {
@@ -22,26 +23,22 @@ const DatabasePage = ({ wineData }) => {
     }
   }
 
-  function handleTextChange(field, newTextInput) {
-    switch (field) {
-      case "brand":
-        setBrandFilter(newTextInput.toLowerCase());
-        break;
-      case "vineyard":
-        setVineyardFilter(newTextInput.toLowerCase());
-    }
-  }
+  const handleSliderChange = (event,newValue: number[]) => {
+      setPriceRange([newValue[0], newValue[1]]);
+  };
+
 
   useEffect(() => {
     async function printed_wine() {
       const temp_wine_list = [...wineData];
       const filtered_list = temp_wine_list
         .filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
-        .filter((wine) => wine.vineyard.toLowerCase().includes(vineyardFilter));
+        .filter((wine) => wine.vineyard.toLowerCase().includes(vineyardFilter))
+        .filter((wine) => wine.price >= priceRange[0] && wine.price <= priceRange[1]);
       setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
     }
     printed_wine();
-  }, [currentPage, wineData, brandFilter, vineyardFilter]);
+  }, [currentPage, wineData, brandFilter, vineyardFilter,priceRange]);
 
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
@@ -137,11 +134,9 @@ const DatabasePage = ({ wineData }) => {
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
                   Price Range
                 </label>
-                <RangeSlider handleSliderChange={() => handleSliderChange()}/>
+                <RangeSlider handleSliderChange={handleSliderChange} priceRange={priceRange}/>
               </div>
-
             </div>
-            
           </motion.div>
 
           {/* Results Table */}
