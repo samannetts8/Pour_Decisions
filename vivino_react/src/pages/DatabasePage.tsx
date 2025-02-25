@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import RangeSlider from "../components/DoubleSlider"; 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
@@ -10,6 +11,16 @@ const DatabasePage = ({ wineData }) => {
   const [displayedWines, setDisplayedWines] = useState([]);
   const [brandFilter, setBrandFilter] = useState("");
   const [vineyardFilter, setVineyardFilter] = useState("");
+
+  function handleTextChange(field, newTextInput) {
+    switch (field) {
+      case "brand":
+        setBrandFilter(newTextInput.toLowerCase());
+        break;
+      case "vineyard":
+        setVineyardFilter(newTextInput.toLowerCase());
+    }
+  }
 
   function handleTextChange(field, newTextInput) {
     switch (field) {
@@ -35,6 +46,8 @@ const DatabasePage = ({ wineData }) => {
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
+
+
 
   return (
     <div className="min-h-screen bg-cream">
@@ -124,15 +137,11 @@ const DatabasePage = ({ wineData }) => {
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
                   Price Range
                 </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 rounded-xl border border-gold/50 focus:border-wine focus:ring-1 focus:ring-wine bg-cream/50"
-                />
+                <RangeSlider handleSliderChange={() => handleSliderChange()}/>
               </div>
-              <button className="w-full bg-wine text-cream rounded-xl py-3 hover:bg-wine/90 transition-colors font-cinzel mt-6">
-                Apply Filters
-              </button>
+
             </div>
+            
           </motion.div>
 
           {/* Results Table */}
