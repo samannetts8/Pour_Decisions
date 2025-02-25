@@ -140,13 +140,13 @@ const DatabasePage = () => {
                       <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
                         Vineyard
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12 ">
                         Year
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
                         Value
                       </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
+                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
                         Price
                       </th>
                     </tr>
@@ -174,13 +174,13 @@ const DatabasePage = () => {
                         <td className="px-6 py-4 whitespace-normal font-cinzel text-wine/80">
                           {wine.vineyard}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine/80">
+                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
                           {wine.year}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine/80">
+                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
                           {wine.value}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-wine/80">
+                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
                           £{wine.price.toFixed(2)}
                         </td>
                       </tr>
