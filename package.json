@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run dev\" \"npm run backend\"",
     "backend": "cd vivino_flask && python server.py",
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 ",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
