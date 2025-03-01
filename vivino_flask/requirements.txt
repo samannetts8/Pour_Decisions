@@ -2,3 +2,6 @@ Flask
 flask-cors
 python-dotenv
 supabase
+pytesseract 
+pillow 
+opencv-python
