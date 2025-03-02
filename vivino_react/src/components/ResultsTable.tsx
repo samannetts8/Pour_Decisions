@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function ResultsTable({ analysisResult, wineData,searchField}) {
@@ -8,26 +8,29 @@ export default function ResultsTable({ analysisResult, wineData,searchField}) {
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
-
   useEffect(() => {
     async function printed_wine() {
+        console.log(analysisResult)
       const temp_wine_list = [...wineData];
+      console.log(searchField)
       if (searchField === "vineyard") {
+        console.log("test")
         const filtered_list = temp_wine_list
-        .filter((wine) => wine.vineyard.toLowerCase().includes(analysisResult))
+        .filter((wine) => analysisResult.some(scanned_wine => wine.vineyard.toLowerCase().includes(scanned_wine.toLowerCase())));
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
       } else if (searchField === "brand") {
         const filtered_list = temp_wine_list
-        .filter((wine) => wine.brand.toLowerCase().includes(analysisResult))
+        .filter((wine) => analysisResult.some(scanned_wine => wine.brand.toLowerCase().includes(scanned_wine.toLowerCase())))
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
       } else {
         const filtered_list = temp_wine_list
-        .filter((wine) => wine.brand.toLowerCase().includes(analysisResult) || wine.vineyard.toLowerCase().includes(analysisResult))
+        .filter((wine) => analysisResult.some(scanned_wine => wine.vineyard.toLowerCase().includes(scanned_wine.toLowerCase())) || analysisResult.some(scanned_wine => wine.brand.toLowerCase().includes(scanned_wine.toLowerCase())))
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
       }
     }
-    printed_wine();
-  }, [currentPage,analysisResult]);
+    printed_wine()
+    console.log(displayedWines)
+  }, [currentPage,analysisResult,wineData,searchField]);
 
   return (
     <div>

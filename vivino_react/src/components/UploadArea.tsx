@@ -11,6 +11,7 @@ const UploadArea = ({ searchField, wineData }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [analysisResult, setAnalysisResult] = useContext(analysisResultContext);
+  const [displayedWineCount, setDisplayedWineCount] = useState(null)
   const [currentPage, setCurrentPage] = useState(1);
   const fileInputRef = useRef(null);
 
@@ -57,7 +58,6 @@ const UploadArea = ({ searchField, wineData }) => {
       console.log(analysisResult);
       return;
     }
-
     setIsLoading(true);
 
     try {
@@ -66,7 +66,7 @@ const UploadArea = ({ searchField, wineData }) => {
       formData.append("image", image);
       formData.append("field", searchField);
       console.log(formData);
-      console.log("test1");
+      console.log(searchField);
       // Replace with your actual backend API endpoint
       const response = await fetch("http://127.0.0.1:5000/image", {
         method: "POST",
@@ -78,9 +78,11 @@ const UploadArea = ({ searchField, wineData }) => {
       if (!response.ok) {
         throw new Error("Fetch request failed");
       }
-
       const result = await response.json();
-      setAnalysisResult(result);
+      const flattened_result = result.flat()
+      console.log(flattened_result)
+      setAnalysisResult(flattened_result);
+      setDisplayedWineCount(flattened_result.length)
     } catch (error) {
       console.error("Error analyzing image:", error);
       setAnalysisResult({
@@ -116,6 +118,8 @@ const UploadArea = ({ searchField, wineData }) => {
     fileInputRef.current.click();
   };
 
+
+  
   return (
     <div className="max-w-xl mx-auto p-6">
       <div
@@ -199,7 +203,7 @@ const UploadArea = ({ searchField, wineData }) => {
 
       {analysisResult && (
         <div className="mt-4 p-4 border rounded-md">
-          <h3 className="font-medium mb-2">Possible Matches:</h3>
+          <h3 className="font-medium mb-2">{displayedWineCount === 1? `Found ${displayedWineCount} potential match:`: `Found ${displayedWineCount} potential matches:` }</h3>
           {analysisResult.error ? (
             <p className="text-red-500">{analysisResult.error}</p>
           ) : (

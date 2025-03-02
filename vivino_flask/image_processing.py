@@ -110,7 +110,9 @@ def filter_wines(wines, scanned_words, field):
         
         potential_vineyards = remove_substring_duplicates(potential_vineyards)
         potential_brands = remove_substring_duplicates(potential_brands)
-        return potential_vineyards, potential_brands
+        
+        combined_potential_list = potential_vineyards + potential_brands
+        return combined_potential_list
 
 
 # potential_vineyards= filter_wines(wine_list, scanned_text,"vineyard")

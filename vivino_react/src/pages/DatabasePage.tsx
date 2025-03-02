@@ -1,73 +1,106 @@
 import React, { useEffect, useState } from "react";
-import RangeSlider from "../components/DoubleSlider"; 
-import YearCheckboxes from "../components/YearCheckbox"; 
-import ValueCheckboxes from "../components/ValueCheckbox"; 
+import RangeSlider from "../components/DoubleSlider";
+import YearCheckboxes from "../components/YearCheckbox";
+import ValueCheckboxes from "../components/ValueCheckbox";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Home, Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "../../../static/assets/pour_decisions_logo_no_background.png";
 import "../index.css";
 
-
 export const displayYearContext = React.createContext();
 export const displayValueContext = React.createContext();
 
 const uniqueYears = [
-    "1990","1992","1996","2002","2004","2007","2008","2009","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023", "Unknown Year"];
+  "1990",
+  "1992",
+  "1996",
+  "2002",
+  "2004",
+  "2007",
+  "2008",
+  "2009",
+  "2011",
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+  "2017",
+  "2018",
+  "2019",
+  "2020",
+  "2021",
+  "2022",
+  "2023",
+  "Unknown Year",
+];
 
 const uniqueValue = [
-  "Amazing Value!","Great Value","Good Value","Fair Value","Better Value Elsewhere","No Score"];
+  "Amazing Value!",
+  "Great Value",
+  "Good Value",
+  "Fair Value",
+  "Better Value Elsewhere",
+  "No Score",
+];
 
 const DatabasePage = ({ wineData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedWines, setDisplayedWines] = useState([]);
   const [brandFilter, setBrandFilter] = useState("");
   const [vineyardFilter, setVineyardFilter] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0,30]);
-  const [checkedYearState, setCheckedYearState] = useState<boolean[]>(Array(uniqueYears.length).fill(true));
-  const [checkedValueState, setCheckedValueState] = useState<boolean[]>(Array(uniqueValue.length).fill(true));
-  const [validYears, setValidYears] =  useState<string[]>(uniqueYears);
-  const [validValues, setValidValues] =  useState<string[]>(uniqueYears);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 30]);
+  const [checkedYearState, setCheckedYearState] = useState<boolean[]>(
+    Array(uniqueYears.length).fill(true)
+  );
+  const [checkedValueState, setCheckedValueState] = useState<boolean[]>(
+    Array(uniqueValue.length).fill(true)
+  );
+  const [validYears, setValidYears] = useState<string[]>(uniqueYears);
+  const [validValues, setValidValues] = useState<string[]>(uniqueYears);
+
+  console.log(wineData);
 
   function handleTextChange(field, newTextInput) {
     switch (field) {
       case "brand":
         setBrandFilter(newTextInput.toLowerCase());
-        setCurrentPage(1)
+        setCurrentPage(1);
         break;
       case "vineyard":
         setVineyardFilter(newTextInput.toLowerCase());
-        setCurrentPage(1)
+        setCurrentPage(1);
         break;
     }
   }
 
-  const handleSliderChange = (event,newValue: number[]) => {
-      setPriceRange([newValue[0], newValue[1]]);
-      setCurrentPage(1)
+  const handleSliderChange = (event, newValue: number[]) => {
+    setPriceRange([newValue[0], newValue[1]]);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
-    const temp_years = [...uniqueYears]
-    const filtered_years = []
-    for (let i =0;i<uniqueYears.length;i++){
-      if(checkedYearState[i]){
-        filtered_years.push(temp_years[i])
+    const temp_years = [...uniqueYears];
+    const filtered_years = [];
+    for (let i = 0; i < uniqueYears.length; i++) {
+      if (checkedYearState[i]) {
+        filtered_years.push(temp_years[i]);
       }
     }
-    setValidYears(filtered_years)
-  },[checkedYearState])
+    setValidYears(filtered_years);
+  }, [checkedYearState]);
 
   useEffect(() => {
-    const temp_values = [...uniqueValue]
-    const filtered_values = []
-    for (let i =0;i<uniqueValue.length;i++){
-      if(checkedValueState[i]){
-        filtered_values.push(temp_values[i])
+    const temp_values = [...uniqueValue];
+    const filtered_values = [];
+    for (let i = 0; i < uniqueValue.length; i++) {
+      if (checkedValueState[i]) {
+        filtered_values.push(temp_values[i]);
       }
     }
-    setValidValues(filtered_values)
-  },[checkedValueState])
+    setValidValues(filtered_values);
+  }, [checkedValueState]);
 
   useEffect(() => {
     async function printed_wine() {
@@ -75,18 +108,27 @@ const DatabasePage = ({ wineData }) => {
       const filtered_list = temp_wine_list
         .filter((wine) => wine.brand.toLowerCase().includes(brandFilter))
         .filter((wine) => wine.vineyard.toLowerCase().includes(vineyardFilter))
-        .filter((wine) => wine.price >= priceRange[0] && wine.price <= priceRange[1])
+        .filter(
+          (wine) => wine.price >= priceRange[0] && wine.price <= priceRange[1]
+        )
         .filter((wine) => validYears.includes(wine.year))
         .filter((wine) => validValues.includes(wine.value));
-        setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
+      setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
     }
     printed_wine();
-  }, [currentPage, wineData, brandFilter, vineyardFilter,priceRange,validYears,validValues]);
+  }, [
+    currentPage,
+    wineData,
+    brandFilter,
+    vineyardFilter,
+    priceRange,
+    validYears,
+    validValues,
+  ]);
 
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
-
 
   return (
     <div className="min-h-screen bg-cream">
@@ -164,32 +206,38 @@ const DatabasePage = ({ wineData }) => {
                 />
               </div>
               <div>
-                <displayYearContext.Provider value={[checkedYearState, setCheckedYearState]}>
-                <label className="block text-sm font-cinzel text-wine/80 mb-2">
-                  Year Range
-                </label>
-                <div className="px-4 py-1">
-                <YearCheckboxes/>
-                </div>
+                <displayYearContext.Provider
+                  value={[checkedYearState, setCheckedYearState]}
+                >
+                  <label className="block text-sm font-cinzel text-wine/80 mb-2">
+                    Year Range
+                  </label>
+                  <div className="px-4 py-1">
+                    <YearCheckboxes />
+                  </div>
                 </displayYearContext.Provider>
               </div>
               <div>
                 <label className="block text-sm font-cinzel text-wine/80 mb-2">
                   Price Range
                 </label>
-                <RangeSlider handleSliderChange={handleSliderChange} priceRange={priceRange}/>
+                <RangeSlider
+                  handleSliderChange={handleSliderChange}
+                  priceRange={priceRange}
+                />
               </div>
               <div>
-                <displayValueContext.Provider value={[checkedValueState, setCheckedValueState]}>
-                <label className="block text-sm font-cinzel text-wine/80 mb-2">
-                  Value
-                </label>
-                <div className="px-4 py-1">
-                <ValueCheckboxes />
-                </div>
+                <displayValueContext.Provider
+                  value={[checkedValueState, setCheckedValueState]}
+                >
+                  <label className="block text-sm font-cinzel text-wine/80 mb-2">
+                    Value
+                  </label>
+                  <div className="px-4 py-1">
+                    <ValueCheckboxes />
+                  </div>
                 </displayValueContext.Provider>
               </div>
-
             </div>
           </motion.div>
 
@@ -199,87 +247,95 @@ const DatabasePage = ({ wineData }) => {
             animate={{ opacity: 1, y: 0 }}
             className="flex-1"
           >
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className=" divide-y divide-gold/30">
-                  <thead className="bg-wine/5">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
-                        Score
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
-                        Brand
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
-                        Vineyard
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12 ">
-                        Year
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
-                        Value
-                      </th>
-                      <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
-                        Price
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gold/30">
-                    {displayedWines.map((wine) => (
-                      <tr
-                        key={wine.id}
-                        className="hover:bg-wine/5 transition-colors"
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div
-                            className={`inline-flex items-center justify-center w-10 h-10 rounded-full font-cinzel ${
-                              wine.average_rating >= 4.4
-                                ? "bg-wine/10 text-wine"
-                                : "bg-gold/10 text-gold"
-                            }`}
-                          >
-                            {wine.average_rating}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-normal font-cinzel text-wine">
-                          {wine.brand}
-                        </td>
-                        <td className="px-6 py-4 whitespace-normal font-cinzel text-wine/80">
-                          {wine.vineyard}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
-                          {wine.year}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
-                          {wine.value}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
-                          £{wine.price.toFixed(2)}
-                        </td>
+            <div className="flex-1">
+              {/* Container for table and pagination with constrained width and white background */}
+              <div
+                className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden"
+                style={{ maxWidth: "3000px" }}
+              >
+                {" "}
+                {/* Adjust maxWidth here */}
+                {/* Table Container */}
+                <div className="overflow-x-auto">
+                  <table className="w-full divide-y divide-gold/30">
+                    <thead className="bg-wine/5">
+                      <tr>
+                        <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-1/12">
+                          Score
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
+                          Brand
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider w-2/12">
+                          Vineyard
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
+                          Year
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
+                          Value
+                        </th>
+                        <th className="px-6 py-4 text-left text-sm font-cinzel text-wine/80 uppercase tracking-wider text-center w-1/12">
+                          Price
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Pagination */}
-              <div className="bg-wine/5 px-6 py-4 flex items-center justify-between border-t border-gold/30">
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => page_navigation(-1)}
-                    className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                  <span className="text-wine font-cinzel">
-                    Page {currentPage}
-                  </span>
-                  <button
-                    onClick={() => page_navigation(1)}
-                    className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
+                    </thead>
+                    <tbody className="divide-y divide-gold/30">
+                      {displayedWines.map((wine) => (
+                        <tr
+                          key={wine.id}
+                          className="hover:bg-wine/5 transition-colors"
+                        >
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div
+                              className={`inline-flex items-center justify-center w-10 h-10 rounded-full font-cinzel ${
+                                wine.average_rating >= 4.4
+                                  ? "bg-wine/10 text-wine"
+                                  : "bg-gold/10 text-gold"
+                              }`}
+                            >
+                              {wine.average_rating}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-normal font-cinzel text-wine">
+                            {wine.brand}
+                          </td>
+                          <td className="px-6 py-4 whitespace-normal font-cinzel text-wine/80">
+                            {wine.vineyard}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
+                            {wine.year}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
+                            {wine.value}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap font-cinzel text-center text-wine/80">
+                            £{wine.price.toFixed(2)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {/* Pagination */}
+                <div className="bg-wine/5 px-6 py-4 flex items-center justify-between border-t border-gold/30">
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => page_navigation(-1)}
+                      className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <span className="text-wine font-cinzel">
+                      Page {currentPage}
+                    </span>
+                    <button
+                      onClick={() => page_navigation(1)}
+                      className="inline-flex items-center px-3 py-2 rounded-xl bg-cream text-wine font-cinzel text-sm hover:bg-gold/20 transition-colors"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
