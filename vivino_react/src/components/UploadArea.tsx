@@ -311,10 +311,10 @@ const UploadArea = ({ wineData }) => {
         {analysisResult && (
           <div className="fixed inset-x-0 w-full mt-8">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.2 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, scale: 0.2 }}
+              transition={{ duration: 0.5 }}
               className="max-w-[50000px] mx-auto px-6"
             >
               <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
