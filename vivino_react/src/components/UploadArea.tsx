@@ -1,8 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import { analysisResultContext } from "../pages/ImageUpload";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import ResultsTable from "./ResultsTable";
 import FieldButtons from "../components/RadioButton";
 import sample_wine_bottle from "../../../static/assets/sample_wine_bottle.png";
@@ -14,15 +12,47 @@ const UploadArea = ({ wineData }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [analysisResult, setAnalysisResult] = useContext(analysisResultContext);
-  const [displayedWineCount, setDisplayedWineCount] = useState(null);
+
   const [searchField, setSearchField] = useState("");
 
   const fileInputRef = useRef(null);
 
-  const handleFieldChange = (event) => {
-    setSearchField(event.target.value);
+  // Function to convert a static image path to a File object
+  const fetchImageAsFile = async (imagePath, fileName) => {
+    try {
+      // Fetch the image from the static path
+      const response = await fetch(imagePath);
+      const blob = await response.blob(); // Convert the response to a Blob
+      // Create a File object from the Blob
+      const file = new File([blob], fileName, { type: blob.type });
+      return file;
+    } catch (error) {
+      console.error("Error fetching image:", error);
+      return null;
+    }
   };
 
+  // Handler for Example Wine Bottle button
+  const handleExampleWineBottle = async () => {
+    const file = await fetchImageAsFile(sample_wine_bottle, "sample_wine_bottle.png");
+    if (file) {
+      setImage(file);
+      setPreviewUrl(URL.createObjectURL(file)); // Set the preview URL
+      setAnalysisResult(null); // Reset analysis result
+    }
+  };
+
+  // Handler for Example Wine Menu button
+  const handleExampleWineMenu = async () => {
+    const file = await fetchImageAsFile(sample_wine_menu, "sample_wine_menu.png");
+    if (file) {
+      setImage(file);
+      setPreviewUrl(URL.createObjectURL(file)); // Set the preview URL
+      setAnalysisResult(null); // Reset analysis result
+    }
+  };
+
+  // Handle file input change
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.type.startsWith("image/")) {
@@ -33,15 +63,18 @@ const UploadArea = ({ wineData }) => {
     }
   };
 
+  // Handle drag over event
   const handleDragOver = (event) => {
     event.preventDefault();
     setIsDragging(true);
   };
 
+  // Handle drag leave event
   const handleDragLeave = () => {
     setIsDragging(false);
   };
 
+  // Handle drop event
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDragging(false);
@@ -55,6 +88,7 @@ const UploadArea = ({ wineData }) => {
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (searchField) => {
     if (!image) {
       setAnalysisResult({ error: "No image selected" });
@@ -82,7 +116,7 @@ const UploadArea = ({ wineData }) => {
       const result = await response.json();
       const flattened_result = result.flat();
       setAnalysisResult(flattened_result);
-      setDisplayedWineCount(flattened_result.length);
+      
     } catch (error) {
       console.error("Error analyzing image:", error);
       setAnalysisResult({
@@ -93,6 +127,7 @@ const UploadArea = ({ wineData }) => {
     }
   };
 
+  // Handle remove image
   const handleRemoveImage = (event) => {
     event.stopPropagation();
     if (previewUrl) {
@@ -106,8 +141,14 @@ const UploadArea = ({ wineData }) => {
     }
   };
 
+  // Handle click on upload area
   const handleClick = () => {
     fileInputRef.current.click();
+  };
+
+  // Handle field change for radio buttons
+  const handleFieldChange = (event) => {
+    setSearchField(event.target.value);
   };
 
   return (
@@ -193,7 +234,7 @@ const UploadArea = ({ wineData }) => {
           {/* Radio Buttons */}
           <div className="mb-6">
             <FieldButtons
-              handleFieldChange={handleFieldChange}
+              handleFieldChange={handleFieldChange} // Pass handleFieldChange here
               searchField={searchField}
             />
           </div>
@@ -228,7 +269,7 @@ const UploadArea = ({ wineData }) => {
               <br />
               <br />
               <span className="italic">
-                Note: Results are drawn from a demo database of 800 wines.
+                Note: Results are drawn from a sample database of 800 wines.
               </span>
             </p>
           </div>
@@ -238,20 +279,26 @@ const UploadArea = ({ wineData }) => {
             <h3 className="font-cinzel text-lg text-wine mb-3">
               <strong>Examples</strong>
             </h3>
-            <p className="text-wine/80 text-sm mb-4">
+            <p className="text-wine/80 text-sm mb-4 ">
               Click on one of the template buttons below to upload a
-              demonstration <br />
+              demonstration: <br />
             </p>
 
             {/* Button Container */}
             <div className="grid grid-cols-2 gap-4">
               {/* Button 1 */}
-              <button className="w-full py-2 px-4 bg-wine text-cream rounded-lg font-cinzel text-sm hover:bg-wine/90 transition-colors focus:outline-none" onClick={()=>setImage(sample_wine_bottle)}>
+              <button
+                className="w-full py-2 px-4 bg-wine text-cream rounded-lg font-cinzel text-sm hover:bg-wine/90 transition-colors focus:outline-none"
+                onClick={handleExampleWineBottle}
+              >
                 Example Wine Bottle
               </button>
 
               {/* Button 2 */}
-              <button className="w-full py-2 px-4 bg-wine text-cream rounded-lg font-cinzel text-sm hover:bg-wine/90 transition-colors focus:outline-none" onClick={()=>setImage(sample_wine_menu)}>
+              <button
+                className="w-full py-2 px-4 bg-wine text-cream rounded-lg font-cinzel text-sm hover:bg-wine/90 transition-colors focus:outline-none"
+                onClick={handleExampleWineMenu}
+              >
                 Example Wine Menu
               </button>
             </div>
@@ -271,11 +318,6 @@ const UploadArea = ({ wineData }) => {
               className="max-w-[50000px] mx-auto px-6"
             >
               <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
-                <h3 className="font-cinzel text-xl text-wine mb-4 text-center">
-                  {displayedWineCount === 0 || displayedWineCount == null
-                    ? `Found no matches`: displayedWineCount === 1? `Found ${displayedWineCount} potential match`
-                    : `Found ${displayedWineCount} potential matches`}
-                </h3>
                 {analysisResult.error ? (
                   <p className="text-wine/80 text-center font-cinzel">
                     {analysisResult.error}

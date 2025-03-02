@@ -2,40 +2,69 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-
-export default function ResultsTable({ analysisResult, wineData,searchField}) {
+export default function ResultsTable({
+  analysisResult,
+  wineData,
+  searchField,
+}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedWines, setDisplayedWines] = useState([]);
-  
+  const [displayedWineCount, setDisplayedWineCount] = useState(null);
+
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
+
   useEffect(() => {
     async function printed_wine() {
-        console.log(analysisResult)
+      console.log(analysisResult);
       const temp_wine_list = [...wineData];
-      console.log(searchField)
+      console.log(searchField);
       if (searchField === "vineyard") {
-        console.log("test")
-        const filtered_list = temp_wine_list
-        .filter((wine) => analysisResult.some(scanned_wine => wine.vineyard.toLowerCase().includes(scanned_wine.toLowerCase())));
+        console.log("test");
+        const filtered_list = temp_wine_list.filter((wine) =>
+          analysisResult.some((scanned_wine) =>
+            wine.vineyard.toLowerCase().includes(scanned_wine.toLowerCase())
+          )
+        );
+        setDisplayedWineCount(filtered_list.length);
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
       } else if (searchField === "brand") {
-        const filtered_list = temp_wine_list
-        .filter((wine) => analysisResult.some(scanned_wine => wine.brand.toLowerCase().includes(scanned_wine.toLowerCase())))
+        const filtered_list = temp_wine_list.filter((wine) =>
+          analysisResult.some((scanned_wine) =>
+            wine.brand.toLowerCase().includes(scanned_wine.toLowerCase())
+          )
+        );
+        setDisplayedWineCount(filtered_list.length);
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
       } else {
-        const filtered_list = temp_wine_list
-        .filter((wine) => analysisResult.some(scanned_wine => wine.vineyard.toLowerCase().includes(scanned_wine.toLowerCase())) || analysisResult.some(scanned_wine => wine.brand.toLowerCase().includes(scanned_wine.toLowerCase())))
+        const filtered_list = temp_wine_list.filter(
+          (wine) =>
+            analysisResult.some((scanned_wine) =>
+              wine.vineyard.toLowerCase().includes(scanned_wine.toLowerCase())
+            ) ||
+            analysisResult.some((scanned_wine) =>
+              wine.brand.toLowerCase().includes(scanned_wine.toLowerCase())
+            )
+        );
+        setDisplayedWineCount(filtered_list.length);
         setDisplayedWines(filtered_list.splice(currentPage * 10 - 10, 10));
       }
     }
-    printed_wine()
-    console.log(displayedWines)
-  }, [currentPage,analysisResult,wineData,searchField]);
+    printed_wine();
+    console.log(displayedWines);
+  }, [currentPage, analysisResult, wineData, searchField]);
 
   return (
     <div>
+      <h3 className="font-cinzel text-xl text-wine mb-4 text-center">
+        {displayedWineCount === 0 || displayedWineCount == null
+          ? `Found no matches`
+          : displayedWineCount === 1
+          ? `Found ${displayedWineCount} potential match`
+          : `Found ${displayedWineCount} potential matches`}
+      </h3>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
