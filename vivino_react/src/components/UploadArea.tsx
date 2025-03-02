@@ -4,16 +4,23 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ResultsTable from "./ResultsTable";
+import FieldButtons from "../components/RadioButton"
 
-const UploadArea = ({ searchField, wineData }) => {
+const UploadArea = ({ wineData }) => {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [analysisResult, setAnalysisResult] = useContext(analysisResultContext);
   const [displayedWineCount, setDisplayedWineCount] = useState(null)
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchField, setSearchField] = useState('')
+  
   const fileInputRef = useRef(null);
+
+    const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchField(event.target.value);
+    };
+  
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -67,6 +74,7 @@ const UploadArea = ({ searchField, wineData }) => {
       formData.append("field", searchField);
       console.log(formData);
       console.log(searchField);
+      console.log("prefetch");
       // Replace with your actual backend API endpoint
       const response = await fetch("http://127.0.0.1:5000/image", {
         method: "POST",
@@ -121,12 +129,13 @@ const UploadArea = ({ searchField, wineData }) => {
 
   
   return (
-    <div className="max-w-xl mx-auto p-6">
+    <div className="max-w-xl mx-auto">
+      {/* Upload Area */}
       <div
-        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer mb-4 ${
+        className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer mb-6 ${
           isDragging
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 hover:border-blue-400"
+            ? "border-wine bg-wine/5"
+            : "border-gold/30 hover:border-wine/60"
         }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -140,17 +149,17 @@ const UploadArea = ({ searchField, wineData }) => {
           accept="image/*"
           className="hidden"
         />
-
+  
         {previewUrl ? (
           <div className="mb-4 relative">
-            <img src={previewUrl} alt="Preview" className="max-h-64 mx-auto" />
+            <img src={previewUrl} alt="Preview" className="max-h-64 mx-auto rounded-xl" />
             <button
               onClick={handleRemoveImage}
-              className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 focus:outline-none"
+              className="absolute top-2 right-2 bg-wine text-cream p-1.5 rounded-full hover:bg-wine/90 transition-colors focus:outline-none"
               title="Remove image"
             >
               <svg
-                className="h-5 w-5"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -168,7 +177,7 @@ const UploadArea = ({ searchField, wineData }) => {
         ) : (
           <div className="py-4">
             <svg
-              className="mx-auto h-12 w-12 text-gray-400"
+              className="mx-auto h-12 w-12 text-wine/60"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -181,35 +190,58 @@ const UploadArea = ({ searchField, wineData }) => {
                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
               ></path>
             </svg>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-2 font-cinzel text-wine/80">
               Click to upload or drag and drop an image
             </p>
-            <p className="text-xs text-gray-400">PNG, JPG, GIF up to 10MB</p>
+            <p className="mt-1 text-sm text-wine/60">
+              PNG, JPG, GIF up to 10MB
+            </p>
           </div>
         )}
       </div>
-
+  
+      {/* Radio Buttons */}
+      <div className="mb-6">
+        <FieldButtons handleFieldChange={handleFieldChange} searchField={searchField} />
+      </div>
+  
+      {/* Submit Button */}
       <button
         onClick={() => handleSubmit(searchField)}
         disabled={!image || isLoading}
-        className={`w-full py-2 px-4 rounded-md ${
+        className={`w-full py-3 px-6 rounded-xl font-cinzel text-lg transition-colors ${
           !image || isLoading
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-700 text-white"
+            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            : "bg-wine text-cream hover:bg-wine/90"
         }`}
       >
         {isLoading ? "Analyzing..." : "Show matches"}
       </button>
-
+  
+      {/* Results Section */}
       {analysisResult && (
-        <div className="mt-4 p-4 border rounded-md">
-          <h3 className="font-medium mb-2">{displayedWineCount === 1? `Found ${displayedWineCount} potential match:`: `Found ${displayedWineCount} potential matches:` }</h3>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-8 p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg"
+        >
+          <h3 className="font-cinzel text-xl text-wine mb-4 text-center">
+            {displayedWineCount === 1 
+              ? `Found ${displayedWineCount} potential match`
+              : `Found ${displayedWineCount} potential matches`}
+          </h3>
           {analysisResult.error ? (
-            <p className="text-red-500">{analysisResult.error}</p>
+            <p className="text-wine/80 text-center font-cinzel">
+              {analysisResult.error}
+            </p>
           ) : (
-            <ResultsTable analysisResult={analysisResult} wineData={wineData} searchField={searchField}/>
+            <ResultsTable 
+              analysisResult={analysisResult} 
+              wineData={wineData} 
+              searchField={searchField}
+            />
           )}
-        </div>
+        </motion.div>
       )}
     </div>
   );

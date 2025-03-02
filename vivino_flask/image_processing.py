@@ -3,6 +3,10 @@ import pytesseract
 import numpy as np
 import io
 import re
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def process_image(file):
     # Read the file into a buffer
@@ -107,11 +111,16 @@ def filter_wines(wines, scanned_words, field):
         
         potential_vineyards = find_potential_matches(vineyards, scanned_words)
         potential_brands = find_potential_matches(brands, scanned_words)
-        
+
+
         potential_vineyards = remove_substring_duplicates(potential_vineyards)
         potential_brands = remove_substring_duplicates(potential_brands)
-        
+
+
         combined_potential_list = potential_vineyards + potential_brands
+        
+        logger.info(f"vine: {combined_potential_list}")
+
         return combined_potential_list
 
 

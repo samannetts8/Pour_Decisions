@@ -83,8 +83,9 @@ def analyse_image():
                 potential_matches = filter_wines(wine_database,image_text_array,field)
                 return jsonify(potential_matches)
             else:
-                potential_vineyards, potential_brands = filter_wines(wine_database,image_text_array,"both")
-                combined_list = potential_vineyards + potential_brands
+                combined_list = filter_wines(wine_database,image_text_array,"both")
+                logger.info("Both")
+                
                 return jsonify(combined_list)
         except Exception as e:
             return jsonify({'error': str(e)}), 500

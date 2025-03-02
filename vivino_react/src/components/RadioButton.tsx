@@ -4,47 +4,76 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { styled } from "@mui/material/styles";
 
-export default function RowRadioButtonsGroup({handleFieldChange,searchField}) {
+// Custom styled components to match theme
+const WineFormControl = styled(FormControl)({
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center'
+});
 
+const WineFormLabel = styled(FormLabel)({
+  color: 'rgb(145, 35, 60, 0.8)', // wine color with opacity
+  fontFamily: 'Cinzel, serif',
+  fontSize: '1.1rem',
+  marginBottom: '1rem'
+});
 
+const WineRadio = styled(Radio)({
+  color: 'rgb(212, 175, 55, 0.3)', // gold color with opacity
+  '&.Mui-checked': {
+    color: 'rgb(145, 35, 60)', // wine color
+  }
+});
 
+const WineFormControlLabel = styled(FormControlLabel)({
+  '& .MuiFormControlLabel-label': {
+    fontFamily: 'Cinzel, serif',
+    color: 'rgb(145, 35, 60, 0.8)', // wine color with opacity
+  }
+});
 
-    return (
-    <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label">
-        Database Search Criteria
-      </FormLabel>
+export default function RowRadioButtonsGroup({handleFieldChange, searchField}) {
+  return (
+    <WineFormControl>
+      <WineFormLabel id="wine-search-radio-group-label">
+        Select Search Type
+      </WineFormLabel>
       <RadioGroup
         row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
+        aria-labelledby="wine-search-radio-group-label"
+        name="wine-search-radio-group"
+        sx={{
+          justifyContent: 'center',
+          gap: '2rem'
+        }}
       >
-        <FormControlLabel
+        <WineFormControlLabel
           name="searchField"
           checked={searchField === 'vineyard'}
           value="vineyard"
           onChange={handleFieldChange}          
-          control={<Radio />}
+          control={<WineRadio />}
           label="Vineyard"
         />
-        <FormControlLabel
+        <WineFormControlLabel
           name="searchField"
           checked={searchField === 'brand'}          
           value="brand"
           onChange={handleFieldChange}          
-          control={<Radio />}
+          control={<WineRadio />}
           label="Brand"
         />
-        <FormControlLabel
+        <WineFormControlLabel
           name="searchField"
-          checked={searchField === 'Vineyard and Brand'}                    
-          value="Vineyard and Brand"
+          checked={searchField === 'both'}                    
+          value="both"
           onChange={handleFieldChange}          
-          control={<Radio />}
-          label="Vineyard and Brand"
+          control={<WineRadio />}
+          label="Both"
         />
       </RadioGroup>
-    </FormControl>
+    </WineFormControl>
   );
 }

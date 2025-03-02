@@ -2,9 +2,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+
 export default function ResultsTable({ analysisResult, wineData,searchField}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedWines, setDisplayedWines] = useState([]);
+  
   function page_navigation(direction: number) {
     setCurrentPage(Math.max(1, currentPage + direction));
   }
