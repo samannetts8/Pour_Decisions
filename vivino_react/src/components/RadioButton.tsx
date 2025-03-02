@@ -17,7 +17,10 @@ const WineFormLabel = styled(FormLabel)({
   color: 'rgb(145, 35, 60, 0.8)', // wine color with opacity
   fontFamily: 'Cinzel, serif',
   fontSize: '1.1rem',
-  marginBottom: '1rem'
+  marginBottom: '1rem',
+  '&.Mui-focused': {
+    color: 'rgb(145, 35, 60, 0.8)' // Keep the same color when focused
+  }
 });
 
 const WineRadio = styled(Radio)({
@@ -38,7 +41,7 @@ export default function RowRadioButtonsGroup({handleFieldChange, searchField}) {
   return (
     <WineFormControl>
       <WineFormLabel id="wine-search-radio-group-label">
-        Select Search Type
+        <strong>Select Search Type</strong>
       </WineFormLabel>
       <RadioGroup
         row
@@ -71,7 +74,7 @@ export default function RowRadioButtonsGroup({handleFieldChange, searchField}) {
           value="both"
           onChange={handleFieldChange}          
           control={<WineRadio />}
-          label="Both"
+          label="Vineyard & Brand"
         />
       </RadioGroup>
     </WineFormControl>

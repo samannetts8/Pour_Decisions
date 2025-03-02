@@ -12,7 +12,7 @@ export default function ImageUpload({wineData}) {
   const [searchField, setSearchField] = useState('')
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="h-screen bg-cream">
       <header className="bg-wine shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -45,7 +45,7 @@ export default function ImageUpload({wineData}) {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-6 py-8 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export default function ImageUpload({wineData}) {
         >
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
             <h1 className="text-3xl font-cinzel text-wine mb-6 text-center">
-              Image Upload
+             <strong> Image Upload</strong>
             </h1>
             <analysisResultContext.Provider value={[analysisResult, setAnalysisResult]}>
               <UploadArea wineData={wineData} />
