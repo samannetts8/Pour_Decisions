@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import FieldButtons from "../components/RadioButton"
 import { Home, Database, ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "../../../static/assets/pour_decisions_logo_no_background.png";
 import UploadArea from "../components/UploadArea"
 
 
+export const analysisResultContext = React.createContext();
+
+
 export default function ImageUpload({wineData}) {    
+
+  const [analysisResult, setAnalysisResult] = useState(null);
+  const [searchField, setSearchField] = useState('')
+
+  const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchField(event.target.value);
+  };
+
 
 return (
 <div>
@@ -44,7 +56,9 @@ return (
     </div>
   </div>
 </header>
-
-<UploadArea/>
+<analysisResultContext.Provider value={[analysisResult, setAnalysisResult]}>
+<UploadArea  searchField={searchField} wineData={wineData}/>
+</analysisResultContext.Provider>
+<FieldButtons handleFieldChange={handleFieldChange} searchField={searchField} />
 
 </div >)};

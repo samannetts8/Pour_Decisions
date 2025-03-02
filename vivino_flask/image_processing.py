@@ -1,15 +1,25 @@
 import cv2
 import pytesseract
+import numpy as np
+import io
 import re
 
-def process_image(image_path):
-    image = cv2.imread(image_path)
+def process_image(file):
+    # Read the file into a buffer
+    in_memory_file = io.BytesIO(file.read())
+    # Convert to numpy array for cv2
+    file_bytes = np.asarray(bytearray(in_memory_file.read()), dtype=np.uint8)
+    # Decode the image using cv2
+    image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    
+    if image is None:
+        raise ValueError("Failed to decode image")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     text = pytesseract.image_to_string(gray)
     return text
 
 def image_to_text_array(image_text):
-    text_clean = text.replace("\n", " ")
+    text_clean = image_text.replace("\n", " ")
     scanned_text = text_clean.split()
     return scanned_text
 
