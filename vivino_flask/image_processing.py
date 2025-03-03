@@ -10,16 +10,23 @@ logger = logging.getLogger(__name__)
 
 def process_image(file):
     # Read the file into a buffer
+    logger.info("Process image function begins...")
     in_memory_file = io.BytesIO(file.read())
+    logger.info("Converting to numpy array for cv2...")
     # Convert to numpy array for cv2
     file_bytes = np.asarray(bytearray(in_memory_file.read()), dtype=np.uint8)
+    logger.info("decode the image using cv2...")    
     # Decode the image using cv2
     image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     
     if image is None:
         raise ValueError("Failed to decode image")
+    logger.info("Image is not None")
+    logger.info("Turn to grayscale")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    logger.info("Run Tesseract")
     text = pytesseract.image_to_string(gray)
+    logger.info("Return")
     return text
 
 def image_to_text_array(image_text):
