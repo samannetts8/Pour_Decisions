@@ -1,0 +1,34 @@
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim
+
+# Set the working directory in the container
+WORKDIR /vivino_flask
+
+# Install system dependencies required by OpenCV
+RUN apt-get update && apt-get install -y \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the requirements file into the container
+COPY vivino_flask/requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the current directory contents into the container
+COPY vivino_flask/ .
+
+# Set Supabase environment variables
+ENV supabase_url=https://rqqhmzupjchoaxkcgsxe.supabase.co
+ENV supabase_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxcWhtenVwamNob2F4a2Nnc3hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk4ODU0MjcsImV4cCI6MjA1NTQ2MTQyN30.dhnk7_hLFXqk1o5wm44dY7WOohHKSWQMjHj6MimAhoM
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Set Flask environment variables
+ENV FLASK_APP=server.py
+ENV FLASK_ENV=production
+
+# Run the Flask application
+CMD ["flask", "run", "--host=0.0.0.0"]

@@ -2,6 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
 COPY tailwind*.config.js ./
 COPY postcss*.config.js ./
@@ -12,6 +13,8 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5175
+# Expose the correct port
+EXPOSE 5173
 
-CMD ["npm","run","dev"]
+# Update the command to use host flag
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

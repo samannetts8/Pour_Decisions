@@ -25,7 +25,12 @@ def process_image(file):
     logger.info("Turn to grayscale")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     logger.info("Run Tesseract")
-    text = pytesseract.image_to_string(gray)
+    try:
+        text = pytesseract.image_to_string(gray)
+        logger.info("Extracted Text:", text)
+    except Exception as e:
+        logger.info("An error occurred:", e)
+
     logger.info("Return")
     return text
 
