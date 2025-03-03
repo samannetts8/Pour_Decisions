@@ -105,7 +105,8 @@ const UploadArea = ({ wineData }) => {
       formData.append("image", image);
       formData.append("field", searchField);
 
-      const response = await fetch("http://127.0.0.1:5000/image", {
+      // const response = await fetch("http://127.0.0.1:5000/image", {
+      const response = await fetch("http://13.49.80.112:5000/image", {  
         method: "POST",
         body: formData,
       });

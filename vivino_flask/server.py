@@ -20,7 +20,8 @@ logger = logging.getLogger(__name__)
 # Allow requests from all origins (for development only)
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:5173"],
+        # "origins": ["http://localhost:5173"],
+        "origins": ["*"],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"],
         "expose_headers": ["Content-Type"],

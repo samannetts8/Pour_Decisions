@@ -6,4 +6,3 @@ pytesseract
 pillow 
 opencv-python
 numpy
-io
